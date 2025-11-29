@@ -75,3 +75,8 @@ All `/api/v1/*` endpoints require authentication.
 - Zod validation
 - Biome linting
 - Vitest testing
+
+## Training Exercises
+
+- [AI for Coding](docs/ai-for-coding.md) - Using AI to develop software (prompts from IDE/CLI)
+- [AI in Apps](docs/ai-in-apps.md) - Using AI in software (API integrations)
