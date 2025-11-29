@@ -2,27 +2,51 @@
 
 A Next.js 16 REST API for managing products and sections with cookie-based authentication.
 
+## Prerequisites
+
+You can use either npm or pnpm as your package manager:
+
+- [npm](https://nodejs.org/) (included with Node.js)
+- [pnpm](https://pnpm.io/installation)
+
 ## Setup
 
 ```bash
+# Using pnpm
 pnpm install
 pnpm db:push      # Create database schema
 pnpm db:seed      # Seed with sample data
+
+# Using npm
+npm install
+npm run db:push
+npm run db:seed
 ```
 
 ## Development
 
 ```bash
+# Using pnpm
 pnpm dev          # Start dev server at http://localhost:3000
 pnpm lint         # Run Biome linter
 pnpm test         # Run tests
+
+# Using npm
+npm run dev
+npm run lint
+npm test
 ```
 
 ## Production Build
 
 ```bash
+# Using pnpm
 NODE_ENV=production pnpm build
 pnpm start
+
+# Using npm
+NODE_ENV=production npm run build
+npm start
 ```
 
 ## API Endpoints
