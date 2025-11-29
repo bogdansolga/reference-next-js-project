@@ -4,7 +4,7 @@ import { type Section, sections } from "@/lib/db/schema";
 
 export const sectionRepository = {
   async findAll(): Promise<Section[]> {
-    return await db.select().from(sections);
+    return db.select().from(sections);
   },
 
   async findById(id: number): Promise<Section | null> {

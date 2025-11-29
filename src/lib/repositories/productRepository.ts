@@ -4,7 +4,7 @@ import { type NewProduct, type Product, products } from "@/lib/db/schema";
 
 export const productRepository = {
   async findAll(): Promise<Product[]> {
-    return await db.select().from(products);
+    return db.select().from(products);
   },
 
   async findById(id: number): Promise<Product | null> {
