@@ -1,5 +1,6 @@
 {
-  "name": "reference-typescript-project",
+  "name": "next-js-reference-project",
+  "description": "A reference project for Next.js, with Drizzle ORM, Tailwind CSS and SQLite",
   "version": "0.1.0",
   "private": true,
   "pnpm": {
