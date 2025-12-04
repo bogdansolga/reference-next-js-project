@@ -4,54 +4,48 @@ A Next.js 16 REST API for managing products and sections with cookie-based authe
 
 ## Prerequisites
 
-You can use either npm or pnpm as your package manager:
+- [Node.js](https://nodejs.org/) v20 or later
+- [pnpm](https://pnpm.io/installation) (recommended) or npm
 
-- [npm](https://nodejs.org/) (included with Node.js)
-- [pnpm](https://pnpm.io/installation)
-
-## Setup
+## Quick Start
 
 ```bash
-# Using pnpm
 pnpm install
-pnpm db:push      # Create database schema
-pnpm db:seed      # Seed with sample data
-
-# Using npm
-npm install
-npm run db:push
-npm run db:seed
+pnpm dev
 ```
 
-## Development
+Open http://localhost:3000 - the database is created and seeded automatically on first run.
+
+## Test Credentials
+
+| Username | Password | Role |
+|----------|----------|------|
+| user | user | USER |
+| admin | admin | ADMIN |
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start dev server with Turbopack |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm lint` | Run Biome linter |
+| `pnpm test` | Run Vitest tests |
+| `pnpm db:studio` | Open Drizzle Studio (DB browser) |
+
+## Environment Variables (Optional)
+
+Create a `.env.local` file for optional features:
 
 ```bash
-# Using pnpm
-pnpm dev          # Start dev server at http://localhost:3000
-pnpm lint         # Run Biome linter
-pnpm test         # Run tests
-
-# Using npm
-npm run dev
-npm run lint
-npm test
-```
-
-## Production Build
-
-```bash
-# Using pnpm
-NODE_ENV=production pnpm build
-pnpm start
-
-# Using npm
-NODE_ENV=production npm run build
-npm start
+OPENAI_API_KEY=sk-...   # Required for AI chat widget
+CHAT_MODEL=gpt-4o-mini  # Optional, defaults to gpt-4.1-nano
 ```
 
 ## API Endpoints
 
-All `/api/v1/*` endpoints require authentication.
+All `/api/v1/*` endpoints require authentication (login first).
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
