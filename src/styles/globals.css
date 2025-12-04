@@ -24,3 +24,41 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Chat markdown styles */
+.chat-markdown {
+  max-width: none;
+  color: inherit;
+  line-height: 1.5;
+
+  pre {
+    @apply bg-zinc-800 p-2 rounded overflow-x-auto my-2;
+  }
+  code {
+    @apply text-sm;
+  }
+  p {
+    @apply my-1;
+  }
+  ul {
+    @apply my-2 list-disc pl-4;
+  }
+  ol {
+    @apply my-2 list-decimal pl-4;
+  }
+  li {
+    @apply my-0.5;
+  }
+  h1 {
+    @apply text-xl font-bold my-2;
+  }
+  h2 {
+    @apply text-lg font-semibold my-2;
+  }
+  h3 {
+    @apply text-base font-semibold my-1;
+  }
+  h4 {
+    @apply font-medium my-1;
+  }
+}

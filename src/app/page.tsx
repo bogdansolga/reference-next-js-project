@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getSession } from "@/lib/auth";
 import { LogoutButton } from "./logout-button";
+import { ChatWidget } from "@/components/ChatWidget";
 
 async function AuthStatus() {
   const session = await getSession();
@@ -52,6 +53,7 @@ export default function Home() {
           <AuthStatus />
         </Suspense>
       </div>
+      <ChatWidget />
     </main>
   );
 }
