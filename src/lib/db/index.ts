@@ -6,6 +6,7 @@ const sqlite = new BetterSqlite3(process.env.DATABASE_URL || "sqlite.db");
 sqlite.pragma("journal_mode = WAL");
 sqlite.pragma("foreign_keys = ON");
 
+// Create tables if they don't exist (for dev/test without migrations)
 sqlite.exec(`
   CREATE TABLE IF NOT EXISTS sections (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

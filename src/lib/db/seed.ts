@@ -1,14 +1,10 @@
-import { logger } from "@/lib/utils/logger";
 import { db } from "./index";
 import { products, sections } from "./schema";
 
 async function seed() {
-  logger.debug("Seeding database...");
-
   // Check if sections exist (idempotent)
   const existingSections = await db.select().from(sections);
   if (existingSections.length > 0) {
-    logger.debug("Database already seeded, skipping...");
     return;
   }
 
@@ -27,7 +23,7 @@ async function seed() {
     { name: "T-Shirt", price: 19.99, sectionId: clothing.id },
   ]);
 
-  logger.info("Database seeding complete!");
+  console.info("Database seeded");
 }
 
-seed().catch((error) => logger.error("Seed failed:", error));
+seed().catch(console.error);

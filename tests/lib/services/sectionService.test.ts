@@ -6,6 +6,9 @@ vi.mock("@/lib/repositories/sectionRepository", () => ({
   sectionRepository: {
     findAll: vi.fn(),
     findById: vi.fn(),
+    create: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
   },
 }));
 
@@ -29,5 +32,34 @@ describe("sectionService", () => {
   it("getSectionById throws when not exists", async () => {
     vi.mocked(sectionRepository.findById).mockResolvedValue(null);
     await expect(sectionService.getSectionById(1)).rejects.toThrow("Section not found");
+  });
+
+  it("createSection creates and returns section", async () => {
+    vi.mocked(sectionRepository.create).mockResolvedValue({ id: 1, name: "New Section" });
+    const result = await sectionService.createSection({ name: "New Section" });
+    expect(result).toEqual({ id: 1, name: "New Section" });
+  });
+
+  it("updateSection updates and returns section", async () => {
+    vi.mocked(sectionRepository.findById).mockResolvedValue({ id: 1, name: "Old" });
+    vi.mocked(sectionRepository.update).mockResolvedValue({ id: 1, name: "Updated" });
+    const result = await sectionService.updateSection(1, { name: "Updated" });
+    expect(result).toEqual({ id: 1, name: "Updated" });
+  });
+
+  it("updateSection throws when not exists", async () => {
+    vi.mocked(sectionRepository.findById).mockResolvedValue(null);
+    await expect(sectionService.updateSection(1, { name: "Updated" })).rejects.toThrow("Section not found");
+  });
+
+  it("deleteSection deletes section", async () => {
+    vi.mocked(sectionRepository.findById).mockResolvedValue({ id: 1, name: "Electronics" });
+    vi.mocked(sectionRepository.delete).mockResolvedValue();
+    await expect(sectionService.deleteSection(1)).resolves.toBeUndefined();
+  });
+
+  it("deleteSection throws when not exists", async () => {
+    vi.mocked(sectionRepository.findById).mockResolvedValue(null);
+    await expect(sectionService.deleteSection(1)).rejects.toThrow("Section not found");
   });
 });

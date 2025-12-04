@@ -10,6 +10,7 @@ export type User = (typeof users)[number];
 export type Session = { user: { id: string; username: string; role: string } };
 
 const SESSION_COOKIE = "session";
+const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24; // 1 day
 
 export async function login(username: string, password: string): Promise<User | null> {
   const user = users.find((u) => u.username === username && u.password === password);
@@ -20,7 +21,7 @@ export async function login(username: string, password: string): Promise<User | 
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24, // 1 day
+    maxAge: SESSION_MAX_AGE_SECONDS,
   });
 
   return user;

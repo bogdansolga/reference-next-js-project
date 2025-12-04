@@ -1,6 +1,6 @@
 import { Messages } from "@/lib/core/i18n/messages";
 import { sectionRepository } from "@/lib/repositories/sectionRepository";
-import type { SectionResponse } from "@/lib/types/section";
+import type { CreateSectionDto, SectionResponse, UpdateSectionDto } from "@/lib/types/section";
 
 export class NotFoundError extends Error {
   constructor(message: string) {
@@ -21,5 +21,30 @@ export const sectionService = {
       throw new NotFoundError(Messages.SECTION_NOT_FOUND);
     }
     return { id: section.id, name: section.name };
+  },
+
+  async createSection(data: CreateSectionDto): Promise<SectionResponse> {
+    const section = await sectionRepository.create(data);
+    return { id: section.id, name: section.name };
+  },
+
+  async updateSection(id: number, data: UpdateSectionDto): Promise<SectionResponse> {
+    const existing = await sectionRepository.findById(id);
+    if (!existing) {
+      throw new NotFoundError(Messages.SECTION_NOT_FOUND);
+    }
+    const section = await sectionRepository.update(id, data);
+    if (!section) {
+      throw new NotFoundError(Messages.SECTION_NOT_FOUND);
+    }
+    return { id: section.id, name: section.name };
+  },
+
+  async deleteSection(id: number): Promise<void> {
+    const existing = await sectionRepository.findById(id);
+    if (!existing) {
+      throw new NotFoundError(Messages.SECTION_NOT_FOUND);
+    }
+    await sectionRepository.delete(id);
   },
 };

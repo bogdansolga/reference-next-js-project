@@ -27,4 +27,28 @@ describe("sectionRepository", () => {
     const result = await sectionRepository.findById(9999);
     expect(result).toBeNull();
   });
+
+  it("create adds a new section", async () => {
+    const result = await sectionRepository.create({ name: "Clothing" });
+    expect(result.name).toBe("Clothing");
+    expect(result.id).toBeDefined();
+  });
+
+  it("update modifies an existing section", async () => {
+    const all = await sectionRepository.findAll();
+    const result = await sectionRepository.update(all[0].id, { name: "Updated" });
+    expect(result?.name).toBe("Updated");
+  });
+
+  it("update returns null for non-existent section", async () => {
+    const result = await sectionRepository.update(9999, { name: "Updated" });
+    expect(result).toBeNull();
+  });
+
+  it("delete removes a section", async () => {
+    const all = await sectionRepository.findAll();
+    await sectionRepository.delete(all[0].id);
+    const remaining = await sectionRepository.findAll();
+    expect(remaining).toHaveLength(1);
+  });
 });
