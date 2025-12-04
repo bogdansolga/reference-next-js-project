@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { ChatWidget } from "@/components/ChatWidget";
 import { getSession } from "@/lib/auth";
 import { LogoutButton } from "./logout-button";
-import { ChatWidget } from "@/components/ChatWidget";
 
 async function AuthStatus() {
   const session = await getSession();
