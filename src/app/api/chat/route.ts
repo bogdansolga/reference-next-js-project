@@ -9,7 +9,7 @@ const chatModel = process.env.CHAT_MODEL || "gpt-4.1-nano";
 
 export async function POST(req: Request) {
   if (!process.env.OPENAI_API_KEY) {
-    return Response.json({ error: "OPENAI_API_KEY environment variable is not configured" }, { status: 500 });
+    return new Response("The OPENAI_API_KEY environment variable is not configured", { status: 500 });
   }
 
   const { messages } = await req.json();

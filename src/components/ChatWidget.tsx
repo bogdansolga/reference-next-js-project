@@ -8,7 +8,7 @@ import Markdown from "react-markdown";
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
   });
 
@@ -51,6 +51,11 @@ export function ChatWidget() {
               </div>
             ))}
             {status === "submitted" && <div className="text-base text-zinc-400">Thinking...</div>}
+            {error && (
+              <div className="text-base text-red-400 bg-red-900/20 px-3 py-2 rounded">
+                {error.message}
+              </div>
+            )}
           </div>
           <form onSubmit={handleSubmit} className="p-3 border-t border-zinc-700">
             <input
