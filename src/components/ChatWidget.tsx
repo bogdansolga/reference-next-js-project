@@ -51,11 +51,7 @@ export function ChatWidget() {
               </div>
             ))}
             {status === "submitted" && <div className="text-base text-zinc-400">Thinking...</div>}
-            {error && (
-              <div className="text-base text-red-400 bg-red-900/20 px-3 py-2 rounded">
-                {error.message}
-              </div>
-            )}
+            {error && <div className="text-base text-red-400 bg-red-900/20 px-3 py-2 rounded">{error.message}</div>}
           </div>
           <form onSubmit={handleSubmit} className="p-3 border-t border-zinc-700">
             <input
