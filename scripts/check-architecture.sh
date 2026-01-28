@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Architecture Hierarchy Checker
-# Enforces: pages → API routes → services → repositories
+# Enforces: pages -> API routes -> services -> repositories
 #
 # Usage:
 #   ./scripts/check-architecture.sh [--staged]
@@ -11,6 +11,19 @@
 #   (no args)   Check all files (for pre-push)
 
 set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Load config (check project root first, then script dir)
+if [[ -f "./scripts/arch-checks.conf" ]]; then
+    source "./scripts/arch-checks.conf"
+elif [[ -f "$SCRIPT_DIR/arch-checks.conf" ]]; then
+    source "$SCRIPT_DIR/arch-checks.conf"
+else
+    echo "Error: arch-checks.conf not found"
+    echo "Copy from scripts/arch-checks/arch-checks.conf and customize"
+    exit 1
+fi
 
 # Colors
 RED='\033[0;31m'
@@ -30,7 +43,7 @@ get_files() {
     if $STAGED_ONLY; then
         git diff --cached --name-only --diff-filter=ACM | grep -E "$pattern" || true
     else
-        find src -type f -name "*.ts" -o -name "*.tsx" 2>/dev/null | grep -E "$pattern" || true
+        find src -type f \( -name "*.ts" -o -name "*.tsx" \) 2>/dev/null | grep -E "$pattern" || true
     fi
 }
 
@@ -61,36 +74,30 @@ check_file() {
 echo "Checking architecture hierarchy..."
 echo ""
 
-# Check 1: Pages cannot import services, repositories, or db
-PAGE_FILES=$(get_files 'src/app/.*page\.tsx$')
+# Check pages
+PAGE_FILES=$(get_files "$PAGE_PATTERN")
 if [[ -n "$PAGE_FILES" ]]; then
     while IFS= read -r file; do
         [[ -z "$file" ]] && continue
-        check_file "$file" "Page" \
-            '@/lib/services' \
-            '@/lib/repositories' \
-            '@/lib/db'
+        check_file "$file" "Page" $PAGE_FORBIDDEN
     done <<< "$PAGE_FILES"
 fi
 
-# Check 2: API routes cannot import repositories or db
-ROUTE_FILES=$(get_files 'src/app/api/.*route\.ts$')
+# Check routes
+ROUTE_FILES=$(get_files "$ROUTE_PATTERN")
 if [[ -n "$ROUTE_FILES" ]]; then
     while IFS= read -r file; do
         [[ -z "$file" ]] && continue
-        check_file "$file" "API Route" \
-            '@/lib/repositories' \
-            '@/lib/db'
+        check_file "$file" "API Route" $ROUTE_FORBIDDEN
     done <<< "$ROUTE_FILES"
 fi
 
-# Check 3: Services cannot import db directly
-SERVICE_FILES=$(get_files 'src/lib/services/.*\.ts$')
+# Check services
+SERVICE_FILES=$(get_files "$SERVICE_PATTERN")
 if [[ -n "$SERVICE_FILES" ]]; then
     while IFS= read -r file; do
         [[ -z "$file" ]] && continue
-        check_file "$file" "Service" \
-            '@/lib/db'
+        check_file "$file" "Service" $SERVICE_FORBIDDEN
     done <<< "$SERVICE_FILES"
 fi
 
@@ -99,7 +106,7 @@ if [[ $VIOLATIONS_FOUND -eq 1 ]]; then
     echo "----------------------------------------"
     echo -e "${RED}x Architecture hierarchy violations found!${NC}"
     echo ""
-    echo "Required hierarchy: pages → API routes → services → repositories"
+    echo "Required hierarchy: pages -> API routes -> services -> repositories"
     echo ""
     echo "  - Pages can only fetch from API routes"
     echo "  - API routes can only call services"
@@ -107,6 +114,6 @@ if [[ $VIOLATIONS_FOUND -eq 1 ]]; then
     echo "----------------------------------------"
     exit 1
 else
-    echo -e "${GREEN}✓${NC} Architecture hierarchy check passed"
+    echo -e "${GREEN}v${NC} Architecture hierarchy check passed"
     exit 0
 fi

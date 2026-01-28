@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Schema Location Checker
-# Enforces: API routes and services should import schemas from @/lib/schemas/, not define them inline
+# Enforces: API routes and services should import schemas, not define them inline
 #
 # Usage:
 #   ./scripts/check-schemas.sh [--staged]
@@ -11,6 +11,19 @@
 #   (no args)   Check all files (for pre-push)
 
 set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Load config (check project root first, then script dir)
+if [[ -f "./scripts/arch-checks.conf" ]]; then
+    source "./scripts/arch-checks.conf"
+elif [[ -f "$SCRIPT_DIR/arch-checks.conf" ]]; then
+    source "$SCRIPT_DIR/arch-checks.conf"
+else
+    echo "Error: arch-checks.conf not found"
+    echo "Copy from scripts/arch-checks/arch-checks.conf and customize"
+    exit 1
+fi
 
 # Colors
 RED='\033[0;31m'
@@ -27,18 +40,18 @@ fi
 # Get route files to check
 get_route_files() {
     if $STAGED_ONLY; then
-        git diff --cached --name-only --diff-filter=ACM | grep -E 'src/app/api/.*route\.ts$' || true
+        git diff --cached --name-only --diff-filter=ACM | grep -E "${SCHEMA_CHECK_ROUTES}/.*route\.ts$" || true
     else
-        find src/app/api -type f -name "route.ts" 2>/dev/null || true
+        find "$SCHEMA_CHECK_ROUTES" -type f -name "route.ts" 2>/dev/null || true
     fi
 }
 
 # Get service files to check
 get_service_files() {
     if $STAGED_ONLY; then
-        git diff --cached --name-only --diff-filter=ACM | grep -E 'src/lib/services/.*\.ts$' || true
+        git diff --cached --name-only --diff-filter=ACM | grep -E "${SCHEMA_CHECK_SERVICES}/.*\.ts$" || true
     else
-        find src/lib/services -type f -name "*.ts" 2>/dev/null || true
+        find "$SCHEMA_CHECK_SERVICES" -type f -name "*.ts" 2>/dev/null || true
     fi
 }
 
@@ -52,13 +65,12 @@ if [[ -n "$ROUTE_FILES" ]]; then
     while IFS= read -r file; do
         [[ -z "$file" ]] && continue
 
-        # Check if file imports z from "zod" directly
         if grep -q "import.*{.*z.*}.*from.*['\"]zod['\"]" "$file" 2>/dev/null; then
             line_num=$(grep -n "import.*{.*z.*}.*from.*['\"]zod['\"]" "$file" | head -1 | cut -d: -f1)
 
             echo -e "${RED}x${NC} $file:$line_num"
             echo "    Route file imports 'z' from 'zod' directly"
-            echo "    Schemas should be defined in src/lib/schemas/ and imported from there"
+            echo "    Schemas should be defined in $SCHEMA_LOCATION"
             echo ""
             VIOLATIONS_FOUND=1
         fi
@@ -72,13 +84,12 @@ if [[ -n "$SERVICE_FILES" ]]; then
     while IFS= read -r file; do
         [[ -z "$file" ]] && continue
 
-        # Check if file imports z from "zod" directly
         if grep -q "import.*{.*z.*}.*from.*['\"]zod['\"]" "$file" 2>/dev/null; then
             line_num=$(grep -n "import.*{.*z.*}.*from.*['\"]zod['\"]" "$file" | head -1 | cut -d: -f1)
 
             echo -e "${RED}x${NC} $file:$line_num"
             echo "    Service file imports 'z' from 'zod' directly"
-            echo "    Schemas should be defined in src/lib/schemas/ and imported from there"
+            echo "    Schemas should be defined in $SCHEMA_LOCATION"
             echo ""
             VIOLATIONS_FOUND=1
         fi
@@ -92,11 +103,11 @@ if [[ $VIOLATIONS_FOUND -eq 1 ]]; then
     echo ""
     echo "API routes and services should not define Zod schemas inline."
     echo "Instead, schemas should be:"
-    echo "  1. Defined in src/lib/schemas/<domain>.schema.ts"
-    echo "  2. Imported using @/lib/schemas/<domain>.schema"
+    echo "  1. Defined in $SCHEMA_LOCATION"
+    echo "  2. Imported from there"
     echo "----------------------------------------"
     exit 1
 else
-    echo -e "${GREEN}✓${NC} Schema location check passed"
+    echo -e "${GREEN}v${NC} Schema location check passed"
     exit 0
 fi
