@@ -5,13 +5,13 @@ A Next.js 16 REST API for managing products and sections with cookie-based authe
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v20 or later
-- [pnpm](https://pnpm.io/installation) (recommended) or npm
+- [Bun](https://bun.sh/) (recommended) or npm
 
 ## Quick Start
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 Open http://localhost:3000 - the database is created and seeded automatically on first run.
@@ -27,12 +27,12 @@ Open http://localhost:3000 - the database is created and seeded automatically on
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start dev server with Turbopack |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run Biome linter |
-| `pnpm test` | Run Vitest tests |
-| `pnpm db:studio` | Open Drizzle Studio (DB browser) |
+| `bun dev` | Start dev server with Turbopack |
+| `bun build` | Build for production |
+| `bun start` | Start production server |
+| `bun lint` | Run Biome linter |
+| `bun test` | Run Vitest tests |
+| `bun db:studio` | Open Drizzle Studio (DB browser) |
 
 ## Environment Variables (Optional)
 

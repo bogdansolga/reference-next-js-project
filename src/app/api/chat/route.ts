@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   const result = streamText({
     model: openai(chatModel),
     system: systemPrompt,
-    messages: convertToModelMessages(messages),
+    messages: await convertToModelMessages(messages),
   });
 
   return result.toUIMessageStreamResponse();

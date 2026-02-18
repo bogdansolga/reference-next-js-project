@@ -333,16 +333,16 @@ For each user request:
 
 ```bash
 # Run the development server
-pnpm dev
+bun dev
 
 # Run tests
-pnpm test
+bun test
 
 # Check types
-pnpm typecheck
+bun typecheck
 
 # Lint code
-pnpm lint
+bun lint
 ```
 
 ## Sample API Client Setup (OpenAI)

@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <h1 className="text-2xl font-semibold">Product API</h1>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-400">API endpoints available at /api/v1</p>
+      <p className="mt-2 text-zinc-600 dark:text-zinc-400">The API endpoints are available at /api/v1</p>
 
       <div className="mt-6">
         <Suspense fallback={<div className="h-10" />}>
@@ -57,4 +57,3 @@ export default function Home() {
     </main>
   );
 }
-// test
