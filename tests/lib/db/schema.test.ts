@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { products, sections } from "@/lib/db/schema";
+import { products, sections, users } from "@/lib/db/schema";
 
 describe("sections schema", () => {
   it("should have id and name columns", () => {
@@ -16,5 +16,15 @@ describe("products schema", () => {
     expect(products.name).toBeDefined();
     expect(products.price).toBeDefined();
     expect(products.sectionId).toBeDefined();
+  });
+});
+
+describe("users schema", () => {
+  it("should have id, username, password, and role columns", () => {
+    expect(users).toBeDefined();
+    expect(users.id).toBeDefined();
+    expect(users.username).toBeDefined();
+    expect(users.password).toBeDefined();
+    expect(users.role).toBeDefined();
   });
 });
