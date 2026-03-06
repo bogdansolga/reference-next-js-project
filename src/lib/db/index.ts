@@ -18,6 +18,12 @@ sqlite.exec(`
     price REAL NOT NULL,
     section_id INTEGER NOT NULL REFERENCES sections(id)
   );
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL
+  );
 `);
 
 export const db = drizzle(sqlite, { schema });
