@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { connection } from "next/server";
+import { cookies } from "next/headers";
 import { Suspense } from "react";
-import { sectionService } from "@/lib/services/sectionService";
+import type { SectionResponse } from "@/lib/types/section";
 
 async function SectionList() {
-  await connection();
-  const sections = await sectionService.getAllSections();
+  const cookieStore = await cookies();
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/v1/section`, {
+    headers: { Cookie: cookieStore.toString() },
+  });
+  const sections: SectionResponse[] = response.ok ? await response.json() : [];
 
   if (sections.length === 0) {
     return <p className="text-zinc-500">No sections found.</p>;
