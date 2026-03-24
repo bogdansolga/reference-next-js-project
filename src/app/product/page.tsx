@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { Suspense } from "react";
 import type { ProductResponse } from "@/lib/types/product";
 
