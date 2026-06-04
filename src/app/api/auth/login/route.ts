@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
 
-    if (!username || !password) {
+    if (!(username && password)) {
       return NextResponse.json({ error: "Username and password required" }, { status: HTTP_STATUS.BAD_REQUEST });
     }
 

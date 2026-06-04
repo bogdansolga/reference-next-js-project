@@ -1,5 +1,5 @@
 import { Messages } from "@/lib/core/i18n/messages";
-import { sectionRepository } from "@/lib/repositories/sectionRepository";
+import { sectionRepository } from "@/lib/repositories/section-repository";
 import type { CreateSectionDto, SectionResponse, UpdateSectionDto } from "@/lib/types/section";
 
 export class NotFoundError extends Error {

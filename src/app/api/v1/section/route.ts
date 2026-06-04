@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { HTTP_STATUS } from "@/lib/core/http/constants";
-import { handleError } from "@/lib/core/http/errorHandler";
+import { handleError } from "@/lib/core/http/error-handler";
 import { Messages } from "@/lib/core/i18n/messages";
-import { sectionService } from "@/lib/services/sectionService";
+import { sectionService } from "@/lib/services/section-service";
 import { createSectionSchema } from "@/lib/types/section";
 
 export async function GET() {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     if (!parsed.success) {
       return NextResponse.json(
         { error: Messages.VALIDATION_FAILED, details: parsed.error.flatten() },
-        { status: HTTP_STATUS.BAD_REQUEST },
+        { status: HTTP_STATUS.BAD_REQUEST }
       );
     }
     const section = await sectionService.createSection(parsed.data);

@@ -1,8 +1,8 @@
 import { Messages } from "@/lib/core/i18n/messages";
-import { productRepository } from "@/lib/repositories/productRepository";
-import { sectionRepository } from "@/lib/repositories/sectionRepository";
+import { productRepository } from "@/lib/repositories/product-repository";
+import { sectionRepository } from "@/lib/repositories/section-repository";
 import type { CreateProductDto, ProductResponse, UpdateProductDto } from "@/lib/types/product";
-import { NotFoundError } from "./sectionService";
+import { NotFoundError } from "./section-service";
 
 export class ValidationError extends Error {
   constructor(message: string) {

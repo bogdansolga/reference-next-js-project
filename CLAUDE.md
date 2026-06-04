@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Lint | `bun lint` (Biome) |
 | Format | `bun run format` |
 | All tests | `bun test` |
-| Single test | `bunx vitest run tests/lib/services/productService.test.ts` |
+| Single test | `bunx vitest run tests/lib/services/product-service.test.ts` |
 | Watch tests | `bun run test:watch` |
 | DB studio | `bun run db:studio` |
 | Type + lint | `bun run verify:all` |
@@ -41,7 +41,7 @@ Route Handler (src/app/api/v1/*)
 
 ### Linting
 
-Biome extends `ultracite/next`. Notable rules: `noConsole: error` (except seed and errorHandler), `noExplicitAny: warn`. Line width 120, 2-space indent. Config in `biome.jsonc`.
+Biome extends `ultracite/next`. Notable rules: `noConsole: error` (except seed, and the centralized `error-handler.ts` via an inline `biome-ignore`), `noExplicitAny: warn`. Line width 120, 2-space indent. Config in `biome.jsonc`.
 
 ### Tests
 

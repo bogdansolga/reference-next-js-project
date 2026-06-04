@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { db } from "@/lib/db";
 import { products, sections } from "@/lib/db/schema";
-import { sectionRepository } from "@/lib/repositories/sectionRepository";
+import { sectionRepository } from "@/lib/repositories/section-repository";
 
 describe("sectionRepository", () => {
   beforeEach(async () => {

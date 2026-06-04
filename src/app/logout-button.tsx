@@ -13,8 +13,8 @@ export function LogoutButton() {
 
   return (
     <button
-      onClick={handleLogout}
       className="mt-2 px-4 py-2 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+      onClick={handleLogout}
     >
       Logout
     </button>

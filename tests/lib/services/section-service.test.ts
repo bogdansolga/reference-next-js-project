@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { sectionRepository } from "@/lib/repositories/sectionRepository";
-import { sectionService } from "@/lib/services/sectionService";
+import { sectionRepository } from "@/lib/repositories/section-repository";
+import { sectionService } from "@/lib/services/section-service";
 
-vi.mock("@/lib/repositories/sectionRepository", () => ({
+vi.mock("@/lib/repositories/section-repository", () => ({
   sectionRepository: {
     findAll: vi.fn(),
     findById: vi.fn(),

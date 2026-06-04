@@ -12,6 +12,7 @@ export function handleError(error: unknown): NextResponse {
     }
   }
 
+  // biome-ignore lint/suspicious/noConsole: centralized server-side error logging
   console.error("Unexpected error:", error);
   return NextResponse.json({ error: Messages.INTERNAL_SERVER_ERROR }, { status: HTTP_STATUS.INTERNAL_SERVER_ERROR });
 }

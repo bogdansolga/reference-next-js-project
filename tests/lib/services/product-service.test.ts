@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { productRepository } from "@/lib/repositories/productRepository";
-import { sectionRepository } from "@/lib/repositories/sectionRepository";
-import { productService } from "@/lib/services/productService";
+import { productRepository } from "@/lib/repositories/product-repository";
+import { sectionRepository } from "@/lib/repositories/section-repository";
+import { productService } from "@/lib/services/product-service";
 
-vi.mock("@/lib/repositories/productRepository", () => ({
+vi.mock("@/lib/repositories/product-repository", () => ({
   productRepository: {
     findAll: vi.fn(),
     findById: vi.fn(),
@@ -13,7 +13,7 @@ vi.mock("@/lib/repositories/productRepository", () => ({
   },
 }));
 
-vi.mock("@/lib/repositories/sectionRepository", () => ({
+vi.mock("@/lib/repositories/section-repository", () => ({
   sectionRepository: {
     findById: vi.fn(),
   },
@@ -27,7 +27,7 @@ describe("productService", () => {
   it("createProduct validates section exists", async () => {
     vi.mocked(sectionRepository.findById).mockResolvedValue(null);
     await expect(productService.createProduct({ name: "Test", price: 10, sectionId: 999 })).rejects.toThrow(
-      "Section not found",
+      "Section not found"
     );
   });
 

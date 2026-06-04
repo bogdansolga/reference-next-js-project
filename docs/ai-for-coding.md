@@ -57,7 +57,7 @@ Describe the architecture of this Next.js project. What patterns does it follow?
 
 **Prompt:**
 ```
-Review src/lib/services/productService.ts for potential improvements. Focus on error handling and type safety.
+Review src/lib/services/product-service.ts for potential improvements. Focus on error handling and type safety.
 ```
 
 **What to observe:**
@@ -73,7 +73,7 @@ Review src/lib/services/productService.ts for potential improvements. Focus on e
 
 **Prompt:**
 ```
-Add JSDoc comments to the exported functions in src/lib/repositories/sectionRepository.ts
+Add JSDoc comments to the exported functions in src/lib/repositories/section-repository.ts
 ```
 
 **What to observe:**
@@ -89,7 +89,7 @@ Add JSDoc comments to the exported functions in src/lib/repositories/sectionRepo
 
 **Prompt:**
 ```
-Write unit tests for src/lib/services/sectionService.ts using Vitest. Mock the repository layer.
+Write unit tests for src/lib/services/section-service.ts using Vitest. Mock the repository layer.
 ```
 
 **What to observe:**

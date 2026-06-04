@@ -17,7 +17,7 @@ async function SectionList() {
   return (
     <ul className="space-y-2">
       {sections.map((section) => (
-        <li key={section.id} className="p-3 border rounded-md dark:border-zinc-700">
+        <li className="rounded-md border p-3 dark:border-zinc-700" key={section.id}>
           {section.name}
         </li>
       ))}
@@ -27,12 +27,12 @@ async function SectionList() {
 
 export default function SectionsPage() {
   return (
-    <main className="min-h-screen p-8 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold">Sections</h1>
+    <main className="mx-auto min-h-screen max-w-2xl p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="font-semibold text-2xl">Sections</h1>
         <Link
-          href="/"
           className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          href="/"
         >
           ← Back
         </Link>

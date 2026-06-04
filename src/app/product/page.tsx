@@ -17,7 +17,7 @@ async function ProductList() {
   return (
     <ul className="space-y-2">
       {products.map((product) => (
-        <li key={product.id} className="p-3 border rounded-md dark:border-zinc-700 flex justify-between items-center">
+        <li className="flex items-center justify-between rounded-md border p-3 dark:border-zinc-700" key={product.id}>
           <span>{product.name}</span>
           <span className="text-zinc-600 dark:text-zinc-400">${product.price.toFixed(2)}</span>
         </li>
@@ -28,12 +28,12 @@ async function ProductList() {
 
 export default function ProductsPage() {
   return (
-    <main className="min-h-screen p-8 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold">Products</h1>
+    <main className="mx-auto min-h-screen max-w-2xl p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="font-semibold text-2xl">Products</h1>
         <Link
-          href="/"
           className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          href="/"
         >
           ← Back
         </Link>

@@ -41,49 +41,49 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-semibold text-center mb-6">Login</h1>
+        <h1 className="mb-6 text-center font-semibold text-2xl">Login</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username" className="block text-sm font-medium mb-1">
+            <label className="mb-1 block font-medium text-sm" htmlFor="username">
               Username
             </label>
             <input
+              className="w-full rounded-md border px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800"
               id="username"
+              onChange={(e) => setUsername(e.target.value)}
+              required
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md dark:bg-zinc-800 dark:border-zinc-700"
-              required
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium mb-1">
+            <label className="mb-1 block font-medium text-sm" htmlFor="password">
               Password
             </label>
             <input
+              className="w-full rounded-md border px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800"
               id="password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md dark:bg-zinc-800 dark:border-zinc-700"
-              required
             />
           </div>
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
-            type="submit"
+            className="w-full rounded-md bg-zinc-900 px-4 py-2 text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
             disabled={loading}
-            className="w-full py-2 px-4 bg-zinc-900 text-white rounded-md hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            type="submit"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <div className="mt-6 text-sm text-zinc-500 text-center">
+        <div className="mt-6 text-center text-sm text-zinc-500">
           <p>Test credentials:</p>
           <p className="font-mono">user / user (USER role)</p>
           <p className="font-mono">admin / admin (ADMIN role)</p>

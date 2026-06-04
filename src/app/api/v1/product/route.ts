@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { HTTP_STATUS } from "@/lib/core/http/constants";
-import { handleError } from "@/lib/core/http/errorHandler";
+import { handleError } from "@/lib/core/http/error-handler";
 import { Messages } from "@/lib/core/i18n/messages";
-import { productService } from "@/lib/services/productService";
+import { productService } from "@/lib/services/product-service";
 import { createProductSchema } from "@/lib/types/product";
 
 export async function GET() {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     if (!parsed.success) {
       return NextResponse.json(
         { error: Messages.VALIDATION_FAILED, details: parsed.error.flatten() },
-        { status: HTTP_STATUS.BAD_REQUEST },
+        { status: HTTP_STATUS.BAD_REQUEST }
       );
     }
     const product = await productService.createProduct(parsed.data);

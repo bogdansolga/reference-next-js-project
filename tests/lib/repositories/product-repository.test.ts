@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { db } from "@/lib/db";
 import { products, sections } from "@/lib/db/schema";
-import { productRepository } from "@/lib/repositories/productRepository";
+import { productRepository } from "@/lib/repositories/product-repository";
 
 describe("productRepository", () => {
   let sectionId: number;
